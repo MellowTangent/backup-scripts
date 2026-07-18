@@ -33,21 +33,26 @@ script.
   Note: The rest of the systems components don't matter as long as you can run a CLI (command line interface).
   
 ## Setup
+> This assumes basic comfort with the Linux command line — navigating directories, editing text files, and running scripts. It won't hold your hand through every command, but the essentials to gather your own config values are included below.
+
 1. **Install the requirements.** Make sure `rsync` and `openssh-client` are available on each client machine (see Requirements above — Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
 2. **Copy `push-backup.bash` to each client machine** you want to back up.
 3. **Edit the config block at the top of `push-backup.bash`:**
-   - `REMOTE_USER` — the username on the server
-   - `REMOTE_HOST` — your server's IP address
-   - `REMOTE_DESTINATION` — the base backup directory on the server
-   - `LOCAL_SOURCE` — the local folder you're backing up (trailing slash matters for rsync)
-   - `LOG_FILE` — where this machine's backup log gets written
+   - `REMOTE_USER` — the username on the server. Find it by running `whoami` on the server itself.
+   - `REMOTE_HOST` — your server's IP address. Find it by running `ip a` (or `hostname -I` for a quick one-liner) on the server, and look for the IP under your active network interface.
+   - `REMOTE_DESTINATION` — the base backup directory on the server (wherever your primary backup drive is mounted).
+   - `LOCAL_SOURCE` — the local folder you're backing up (trailing slash matters for rsync).
+   - `LOG_FILE` — where this machine's backup log gets written.<br>
+   Note: you don't need to set `$HOSTNAME` yourself — the script pulls it automatically from the client machine's own hostname, which you can check with `hostname` if you want to confirm what it'll show up as on the server.
 4. **Run it manually whenever you want to back up that machine:**
    `./push-backup.bash`<br>
    You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs — this is intentional, so a backup never kicks off by accident.
 5. **Copy `mirror-backup.bash` to the backup server**, and edit its config block:
-   - `PRIMARY_DRIVE` — the main backup drive being mirrored
-   - `MIRROR_DRIVE` — the redundant copy destination
-   - `LOG_FILE` — where the mirror job's log gets written<br>
+   - `PRIMARY_DRIVE` — the main backup drive being mirrored. Find your mounted drives with `lsblk` or `df -h`.
+   - `MIRROR_DRIVE` — the redundant copy destination (same commands apply).
+   - `LOG_FILE` — where the mirror job's log gets written.<br>
    Note: this script runs with `--delete`, meaning it's a true mirror — files removed from `PRIMARY_DRIVE` get removed from `MIRROR_DRIVE` too on the next run, not just added to.
-6. **Schedule `mirror-backup.bash` via cron** on the server so it runs automatically. Example cron line:
-   `0 23 */2 * * /path/to/mirror-backup.bash`
+6. **Schedule `mirror-backup.bash` via cron** on the server so it runs automatically:
+   - Open your crontab with `crontab -e`
+   - Add a line like: `0 23 */2 * * /path/to/mirror-backup.bash`
+   - Save and exit — cron picks it up automatically
