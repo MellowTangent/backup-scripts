@@ -31,3 +31,23 @@ script.
   OS: Any Linux Distribution or Windows running `WSL`<br>
   
   Note: The rest of the systems components don't matter as long as you can run a CLI (command line interface).
+  
+## Setup
+1. **Install the requirements.** Make sure `rsync` and `openssh-client` are available on each client machine (see Requirements above — Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
+2. **Copy `push-backup.bash` to each client machine** you want to back up.
+3. **Edit the config block at the top of `push-backup.bash`:**
+   - `REMOTE_USER` — the username on the server
+   - `REMOTE_HOST` — your server's IP address
+   - `REMOTE_DESTINATION` — the base backup directory on the server
+   - `LOCAL_SOURCE` — the local folder you're backing up (trailing slash matters for rsync)
+   - `LOG_FILE` — where this machine's backup log gets written
+4. **Run it manually whenever you want to back up that machine:**
+   `./push-backup.bash`<br>
+   You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs — this is intentional, so a backup never kicks off by accident.
+5. **Copy `mirror-backup.bash` to the backup server**, and edit its config block:
+   - `PRIMARY_DRIVE` — the main backup drive being mirrored
+   - `MIRROR_DRIVE` — the redundant copy destination
+   - `LOG_FILE` — where the mirror job's log gets written<br>
+   Note: this script runs with `--delete`, meaning it's a true mirror — files removed from `PRIMARY_DRIVE` get removed from `MIRROR_DRIVE` too on the next run, not just added to.
+6. **Schedule `mirror-backup.bash` via cron** on the server so it runs automatically. Example cron line:
+   `0 23 */2 * * /path/to/mirror-backup.bash`
