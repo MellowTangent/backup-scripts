@@ -17,7 +17,7 @@ script.
 - **Server machine** (mirror-backup.bash): Any Linux box with `rsync` and `openssh-server` installed (most Linux distros ship these by default).<br>
   In my case I decided to use Ubuntu because of its ease of use and stability.
 - **Server machine specs:**<br>
-  OS: Ubuntu 26.04 LTS
+  OS: Ubuntu 26.04 LTS<br>
   MB: MSI B150M BAZOOKA PLUS<br>
   CPU: Intel Core i5-6402P - Stock Settings & Cooler<br>
   RAM: 8GB DDR4 - Stock<br>
