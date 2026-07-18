@@ -1,5 +1,5 @@
 #!/bin/bash
-# mirror-sync.bash
+# mirror-backup.bash
 # Creates a mirrored copy of the primary backup drive onto a
 # second drive, providing redundancy in case the primary
 # backup drive fails. Intended to run on a schedule via cron
