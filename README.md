@@ -20,9 +20,9 @@ script.
   MB: MSI B150M BAZOOKA PLUS<br>
   CPU: Intel Core i5-6402P - Stock Settings & Cooler<br>
   RAM: 8GB DDR4 - Stock<br>
-  OS_HDD: 250 GB SSD<br>
+  OS_SSD: 250 GB SSD<br>
   Primary_HDD: 2 TB HDD 7200 rpm<br>
   Secondary_HDD: 1 TB HDD 7200 rpm<br>
   PS: EVGA Supernova G2 550W<br>
   
-two separate physical drives (1TB + 2TB HDD) for the primary/mirror pair. You don't need a monster PC for this — rsync isn't resource intensive, so any low-power x86 box with a couple of spare drives will handle it fine.
+Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. As you can see we do not need a monster PC for this, so any old PC/laptop with a couple of spare drives will handle the job fine.
