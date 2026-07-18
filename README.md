@@ -11,7 +11,7 @@ script.
   This script runs automatically every two days as a cronjob and runs on the server itself which should be running 24/7.
 ## Requirements
 - **Client machine** (push-backup.bash): Windows or any Linux distribution will do here since all we care about is having access to `rsync` and `openssh-client`. These are native on Linux and makes the setup a lot easier.<br>
-  On Windows you need to run them via WSL (Windows Subsystem for Linux).<br>
+  On Windows you need to run them via `WSL` (Windows Subsystem for Linux).<br>
   https://learn.microsoft.com/en-us/windows/wsl/install<br>
   Note: plain Windows (cmd/PowerShell) ships with `ssh` out of the box, but not `rsync`.
 - **Server machine** (mirror-backup.bash): Any Linux box with `rsync` and `openssh-server` installed (most Linux distros ship these by default).<br>
@@ -25,5 +25,8 @@ script.
   Primary_HDD: 2 TB HDD 7200 rpm<br>
   Secondary_HDD: 1 TB HDD 7200 rpm<br>
   PSU: EVGA Supernova G2 550W<br>
-  
-Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. As you can see we do not need a monster PC for this, so any old PC/laptop with a couple of spare drives will handle the job fine.
+
+  Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are   needed for backup redundancy. As you can see we do not need a monster PC for this, so any old PC/laptop with a couple of spare drives will handle the job fine.
+- **Client machine specs:**<br>
+  OS: Any Linux Distribution or Windows running `WSL`<br>
+  Note: The rest of the systems components don't matter as long as you can run a CLI (command line interface).
