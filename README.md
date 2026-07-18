@@ -1,4 +1,6 @@
 # Backup Scripts
+> **Disclaimer:** These instructions assume you have a certain level of proficiency with computers — flashing an ISO onto a USB drive, navigating and running commands on a CLI, running scripts, and general troubleshooting skills if something doesn't work exactly like it does here. This isn't a beginner's guide.
+
 A self built backup system for keeping files synced across a
 home network. It consists of a client side push script and a server side mirror
 script. 
@@ -33,7 +35,8 @@ script.
 
 ## Setup
 1. **Install the requirements.** Make sure `rsync` and `openssh-client` are available on each client machine (see Requirements above — Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
-2. **Copy `push-backup.bash` to each client machine** you want to back up.
+2. **Clone the repo and copy `push-backup.bash` to each client machine** you want to back up:<br>
+   `git clone https://github.com/MellowTangent/backup-scripts.git`
 3. **Edit the config block at the top of `push-backup.bash`:**
    - `REMOTE_USER` — the username on the server (`whoami` on the server).
    - `REMOTE_HOST` — your server's IP address (`ip a` or `hostname -I` on the server).
