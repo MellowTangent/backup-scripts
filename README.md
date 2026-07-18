@@ -29,4 +29,5 @@ script.
   Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are   needed for backup redundancy. As you can see we do not need a monster PC for this, so any old PC/laptop with a couple of spare drives will handle the job fine.
 - **Client machine specs:**<br>
   OS: Any Linux Distribution or Windows running `WSL`<br>
+  
   Note: The rest of the systems components don't matter as long as you can run a CLI (command line interface).
