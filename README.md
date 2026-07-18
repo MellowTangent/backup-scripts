@@ -16,7 +16,7 @@ script.
   Note: plain Windows (cmd/PowerShell) ships with `ssh` out of the box, but not `rsync`.
 - **Server machine** (mirror-backup.bash): Any Linux box with `rsync` and `openssh-server` installed (most Linux distros ship these by default).<br>
   In my case I decided to use Ubuntu 26.04 LTS because of its ease of use and stability.
-- **Server machine hardware** —<br>
+- **Server Specs**
   CPU: Intel Core i5-6402P - Stock Settings and Cooler<br>
   R.A.M: 8GB RAM<br>
 two separate physical drives (1TB + 2TB HDD) for the primary/mirror pair. You don't need a monster PC for this — rsync isn't resource intensive, so any low-power x86 box with a couple of spare drives will handle it fine.
