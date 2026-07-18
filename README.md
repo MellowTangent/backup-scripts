@@ -15,14 +15,15 @@ script.
   https://learn.microsoft.com/en-us/windows/wsl/install<br>
   Note: plain Windows (cmd/PowerShell) ships with `ssh` out of the box, but not `rsync`.
 - **Server machine** (mirror-backup.bash): Any Linux box with `rsync` and `openssh-server` installed (most Linux distros ship these by default).<br>
-  In my case I decided to use Ubuntu 26.04 LTS because of its ease of use and stability.
-- **Server Specs:**<br>
+  In my case I decided to use Ubuntu because of its ease of use and stability.
+- **Server machine specs:**<br>
+  OS: Ubuntu 26.04 LTS
   MB: MSI B150M BAZOOKA PLUS<br>
   CPU: Intel Core i5-6402P - Stock Settings & Cooler<br>
   RAM: 8GB DDR4 - Stock<br>
   OS_SSD: 250 GB SSD<br>
   Primary_HDD: 2 TB HDD 7200 rpm<br>
   Secondary_HDD: 1 TB HDD 7200 rpm<br>
-  PS: EVGA Supernova G2 550W<br>
+  PSU: EVGA Supernova G2 550W<br>
   
 Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. As you can see we do not need a monster PC for this, so any old PC/laptop with a couple of spare drives will handle the job fine.
