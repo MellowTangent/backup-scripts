@@ -3,12 +3,12 @@ A self built backup system for keeping files synced across a
 home network. It consists of a client side push script and a server side mirror
 script. 
 ## Overview
-- **push-backup.bash** — Pushes files to the server via rsync, into a folder named after the machine's hostname and the current date nested like this: (`hostname/YYYY-MM/YYYY-MM-DD/`).<br>
+- **push-backup.bash** — Pushes `folders/files` to the server with `rsync` via a `ssh` connection to the server. A folder named after the machine's `hostname` and the current `date` is created in the server, nested like this: (`./hostname/YYYY-MM/YYYY-MM-DD/`).<br>
   Each backup gets its own snapshot instead of overwriting the last one so you get the level of granularity that you desire with a snapshot resolution of up to a day.<br>
   The script is manually ran on the machine to be backed up.
-- **mirror-backup.bash** — Mirrors the primary backup drive (Drive A) onto a second drive (Drive B), so
-  if the primary drive dies (Drive A), there's still a recent copy on the other (Drive B).<br> 
-  This script runs automatically every two days as a cronjob and runs on the server itself.
+- **mirror-backup.bash** — Mirrors the primary backup drive (Drive A) onto a second drive (Drive B) with `rsync`, no `ssh` connection required.
+  If the primary drive dies (Drive A), there is still a recent copy on the secondary drive (Drive B).<br> 
+  This script runs automatically every two days as a cronjob and runs on the server itself which should be running 24/7.
 ## Requirements
 - **Client machine** (push-backup.bash): Windows or any Linux distribution will do here since all we care about having access to `rsync` and `openssh-client`. These are native on Linux and makes the setup a lot easier.<br>
   On Windows you need to run them via WSL (Windows Subsystem for Linux).<br>
