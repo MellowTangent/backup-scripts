@@ -31,6 +31,7 @@ script.
   Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. As you can see we do not need a monster PC for this, so any old PC/laptop with a couple of spare drives will handle the job fine.
 - **Client machine specs:**<br>
   OS: Any Linux Distribution or Windows running `WSL`<br>
+  
   Note: The rest of the systems components don't matter as long as you can run a CLI (command line interface).
 
 ## Setup
@@ -51,6 +52,7 @@ script.
    - `PRIMARY_DRIVE` — the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
    - `MIRROR_DRIVE` — the redundant copy destination.
    - `LOG_FILE` — where the mirror job's log gets written.<br>
-   Note: this script runs with `--delete` — files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to.
+   
+   Note: this script runs with the switch `--delete` meaning files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to. In essence `MIRROR_DRIVE` is a perfect copy of `PRIMARY_DRIVE` and is not a cumulative copy of all the changes. 
 6. **Schedule `mirror-backup.bash` via cron** on the server, e.g.:
    `0 23 */2 * * /path/to/mirror-backup.bash`
