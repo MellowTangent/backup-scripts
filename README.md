@@ -9,8 +9,8 @@ script.
   Each backup gets its own snapshot instead of overwriting the last one so you get the level of granularity that you desire with a snapshot     resolution of up to a day.<br>
   The script is manually ran on the machine to be backed up.<br>
 - **mirror-backup.bash** — Mirrors the primary backup drive (Drive A) onto a second drive (Drive B), so
-  if the primary drive dies (Drive A), there's still a recent copy on the other (Drive B). 
-  This script runs automatically every two days as a cronjob and runs on the server itself.
+  if the primary drive dies (Drive A), there's still a recent copy on the other (Drive B).<br> 
+  This script runs automatically every two days as a cronjob and runs on the server itself.<br>
 
 ## Requirements
 - **Client machine** (push-backup.bash): needs `rsync` and an SSH
