@@ -11,6 +11,7 @@ script.
 - **mirror-backup.bash** — Mirrors the primary backup drive (Drive A) onto a second drive (Drive B) with `rsync`, no `ssh` connection required.
   If the primary drive dies (Drive A), there is still a recent copy on the secondary drive (Drive B).<br> 
   This script runs automatically every two days as a cronjob and runs on the server itself which should be running 24/7.
+  
 ## Requirements
 - **Client machine** (push-backup.bash): Windows or any Linux distribution will do here since all we care about is having access to `rsync` and `openssh-client`. These are native on Linux and makes the setup a lot easier.<br>
   On Windows you need to run them via `WSL` (Windows Subsystem for Linux).<br>
@@ -54,5 +55,15 @@ script.
    - `LOG_FILE` — where the mirror job's log gets written.<br>
    
    Note: this script runs with the switch `--delete` meaning files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to. In essence `MIRROR_DRIVE` is a perfect copy of `PRIMARY_DRIVE` and is not a cumulative copy of all the changes. 
+   
 6. **Schedule `mirror-backup.bash` via cron** on the server, e.g.:
    `0 23 */2 * * /path/to/mirror-backup.bash`
+## Why this exists
+This started as a manual folder copy into a shared network drive — no structure, no redundancy, just dragging files over whenever I remembered to. BuntuBox was already sitting in the living room mostly idle, so I rebuilt the whole thing from scratch to actually put that hardware to use: real redundancy, automation where it made sense, and low-friction manual control where automation wasn't worth the tradeoff.
+
+### Design notes
+- **Push (client) vs. pull (server) architecture:** The client machine/s push on-demand rather than the server pulling on a schedule. The LOCAL_SOURCE machine is a high power machine so running it 24/7 makes no sense and thus pulls when the user feels there have been sufficient changes that need backup. A server-side pull job would essentially forces me to keep LOCAL_SOURCE powered on just for automation's sake, not worth it. Push-on-demand means client machines stay free to be on or off whenever they are needed. 
+- **The confirmation prompt in push-backup.bash is intentional friction:** The script asks before it runs anything, rather than just firing off silently. This isn't an oversight it is a deliberate checkpoint so a backup never kicks off by accident or in case the user decides to changes his mind. 
+- **Mirror runs automatically:** The server is a low power device and so running it 24/7 is very much the intention. The sync itself needs no human judgment, it just needs to happen reliably.
+- **Month/day nested folder structure:** Balancing storage efficiency with recovery granularity: since backups are only pushed when something meaningful actually changed, this naturally avoids wasted, redundant daily snapshots.
+- **Logging to a single-line, pipe-delimited format:** on both scripts means I can check what happened without watching either job live — especially the mirror job, which runs unattended.
