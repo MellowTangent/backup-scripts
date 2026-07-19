@@ -53,10 +53,10 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    `$HOSTNAME` is pulled automatically from the client machine, no config needed.
 4. **Run it manually whenever you want to back up that machine:**
    First we want to make the script executable so run the command:<br>
-   `chmod 700 push-backup.bash`
+   `chmod 700 push-backup.bash`<br>
    Run the command `./push-backup.bash`<br> 
    You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.
-5. **Copy `mirror-backup.bash` to the backup server**, and edit its config block:
+5. **Copy `mirror-backup.bash` to the backup server**, make it executable with `chmod 700 mirror-backup.bash`, and edit its config block:
    - `PRIMARY_DRIVE` — the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
    - `MIRROR_DRIVE` — the redundant copy destination.
    - `LOG_FILE` — where the mirror job's log gets written.<br>
