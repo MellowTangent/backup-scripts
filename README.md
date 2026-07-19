@@ -36,10 +36,10 @@ script.
 
 ## Setup
 1. **Install the requirements.** (Windows users need `WSL` installed first)<br> 
-Open the terminal and use the commands `whereis ssh` and `whereis rsync` to make sure `ssh` and `rsync` were installed by default on the client machine(s) and do the same for the machine running the server otherwise install them via:<br>
+Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each machine (client and server) to make sure `ssh` and `rsync` are installed, otherwise install them via:<br>
    `sudo apt update`<br>
    `sudo apt install openssh-client openssh-server rsync`<br>
-   Note: install `openssh-client` on client machines and `openssh-server` on the server machine, `rsync` is needed on both.<br>
+   Note: this installs everything needed regardless of the machine's role, so the same two commands work on both client and server machines.<br>
    On the server, confirm `sshd` is running with `sudo systemctl status ssh`, and if it's not, start it with `sudo systemctl enable --now ssh`.
 2. **Clone the repo and copy `push-backup.bash` to each client machine** you want to back up:<br>
    `git clone https://github.com/MellowTangent/backup-scripts.git`
