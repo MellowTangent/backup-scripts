@@ -58,7 +58,7 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    We want to make the script executable so run the command: `chmod 700 push-backup.bash`<br>
    Run this command to run the script `./push-backup.bash`<br> 
    You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.<br>
-   You will see a bunch of stuff running in the terminal and if succesful you will see a message `BACKUP SUCCESSFUL!` otherwise you will see `BACKUP FAILED!` which will be logged in a text file inside your home directory.
+   You will see a bunch of stuff running in the terminal and if successful you will see a message `BACKUP SUCCESSFUL!` otherwise you will see `BACKUP FAILED!` which will be logged in a text file inside your home directory.
 5. **Copy `mirror-backup.bash` to the backup server**, make it executable with `chmod 700 mirror-backup.bash`, and edit its config block:
    - `PRIMARY_DRIVE` — the path of the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
    - `MIRROR_DRIVE` — the path of the redundant copy destination.
