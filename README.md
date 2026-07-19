@@ -17,9 +17,7 @@ script.
   On Windows you need to run them via `WSL` (Windows Subsystem for Linux). [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)<br>
   Note: plain Windows (cmd/PowerShell) ships with `ssh` out of the box, but not `rsync`.
 - **Server machine** (mirror-backup.bash): Any Linux box with `rsync` and `openssh-server` installed (most Linux distros ship these by default).<br>
-  In my case I decided to use Ubuntu because of its ease of use and stability.
-  You can grab Ubuntu from here:
-  [Ubuntu](https://ubuntu.com/download)<br>
+  In my case I decided to use Ubuntu because of its ease of use and stability. [Ubuntu](https://ubuntu.com/download)<br>
 - **Server machine specs:**<br>
   OS: Ubuntu 26.04 LTS<br>
   MB: MSI B150M BAZOOKA PLUS<br>
