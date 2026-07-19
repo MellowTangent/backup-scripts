@@ -58,8 +58,8 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    Run the command `./push-backup.bash`<br> 
    You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.
 5. **Copy `mirror-backup.bash` to the backup server**, make it executable with `chmod 700 mirror-backup.bash`, and edit its config block:
-   - `PRIMARY_DRIVE` — the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
-   - `MIRROR_DRIVE` — the redundant copy destination.
+   - `PRIMARY_DRIVE` — the path of the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
+   - `MIRROR_DRIVE` — the path of the redundant copy destination.
    - `LOG_FILE` — where the mirror job's log gets written.<br>
    
    Note: this script runs with the switch `--delete` meaning files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to. In essence `MIRROR_DRIVE` is a perfect copy of `PRIMARY_DRIVE` and is not a cumulative copy of all the changes. 
