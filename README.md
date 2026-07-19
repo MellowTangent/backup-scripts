@@ -33,7 +33,7 @@ script.
 - **Client machine specs:**<br>
   OS: Any Linux Distribution or Windows running `WSL`<br>
   
-  Note: The rest of the computers components don't matter as long as you can run a CLI.
+  Note: The rest of the computer's components don't matter as long as you can run a CLI.
 
 ## Setup
 1. **Install the requirements.** Make sure `rsync` and `openssh-client` are available on each client machine (see Requirements above — Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
