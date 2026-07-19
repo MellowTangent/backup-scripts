@@ -32,7 +32,7 @@ script.
   Secondary_HDD: 1 TB HDD 7200 rpm<br>
   PSU: EVGA Supernova G2 550W<br>
 
-  Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. Technically you can use one drive and partion it into smaller chucks but that removes drive redundancy which we want. Well as you can see we do not need a monster PC, so any old PC/laptop with a couple of spare drives will handle the job just fine.
+  Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. Technically you can use one drive and partition it into smaller chunks but that removes drive redundancy which we want. As you can see we do not need a monster PC, so any old PC/laptop with a couple of spare drives will handle the job just fine.
 
 ## Setup
 1. **Install the requirements.** Open the terminal and use the commands `whereis ssh` and `whereis rsync` to make sure they are installed on the client machine(s) (Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
