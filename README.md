@@ -35,7 +35,7 @@ script.
   Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. Technically you can use one drive and partition it into smaller chunks but that removes drive redundancy which we want. As you can see any old PC with a couple of spare drives will handle the job just fine.
 
 ## Setup
-1. **Install the requirements.** (Windows users need `WSL` installed first)<br> 
+1. **Install the requirements** (Windows users need `WSL` installed first)<br> 
 Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each machine (client and server) to make sure `ssh` and `rsync` are installed, otherwise install them via:<br>
    `sudo apt update`<br>
    `sudo apt install openssh-client openssh-server rsync`<br>
