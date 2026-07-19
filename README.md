@@ -32,10 +32,15 @@ script.
   Secondary_HDD: 1 TB HDD 7200 rpm<br>
   PSU: EVGA Supernova G2 550W<br>
 
-  Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. Technically you can use one drive and partition it into smaller chunks but that removes drive redundancy which we want. As you can see any old PC/laptop with a couple of spare drives will handle the job just fine.
+  Note: You can consolidate OS_SSD and Primary_HDD into one drive if you lack the necessary amount of drives but at minimum two drives are needed for backup redundancy. Technically you can use one drive and partition it into smaller chunks but that removes drive redundancy which we want. As you can see any old PC with a couple of spare drives will handle the job just fine.
 
 ## Setup
-1. **Install the requirements.** Open the terminal and use the commands `whereis ssh` and `whereis rsync` to make sure they are installed on the client machine(s) (Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
+1. **Install the requirements.** (Windows users need `WSL` installed first)<br> 
+Open the terminal and use the commands `whereis ssh` and `whereis rsync` to make sure `ssh` and `rsync` were installed by default on the client machine(s) and do the same for the machine running the server otherwise install them via:<br>
+   `sudo apt update`<br>
+   `sudo apt install openssh-client openssh-server rsync`<br>
+   Note: install `openssh-client` on client machines and `openssh-server` on the server machine, `rsync` is needed on both.<br>
+   On the server, confirm `sshd` is running with `sudo systemctl status ssh`, and if it's not, start it with `sudo systemctl enable --now ssh`.
 2. **Clone the repo and copy `push-backup.bash` to each client machine** you want to back up:<br>
    `git clone https://github.com/MellowTangent/backup-scripts.git`
 3. **Edit the config block at the top of `push-backup.bash`:**
