@@ -19,6 +19,8 @@ script.
   Note: plain Windows (cmd/PowerShell) ships with `ssh` out of the box, but not `rsync`.
 - **Server machine** (mirror-backup.bash): Any Linux box with `rsync` and `openssh-server` installed (most Linux distros ship these by default).<br>
   In my case I decided to use Ubuntu because of its ease of use and stability.
+  You can grab Ubuntu from here:
+  [Ubuntu](https://ubuntu.com/download)<br>
 - **Server machine specs:**<br>
   OS: Ubuntu 26.04 LTS<br>
   MB: MSI B150M BAZOOKA PLUS<br>
@@ -36,18 +38,19 @@ script.
   Note: The rest of the computer's components don't matter as long as you can run a CLI.
 
 ## Setup
-1. **Install the requirements.** Make sure `rsync` and `openssh-client` are available on each client machine (see Requirements above — Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
+1. **Install the requirements.** Open the terminal and use the commands `whereis ssh` and `whereis rsync` to make sure they are installed on the client machine(s) (Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
 2. **Clone the repo and copy `push-backup.bash` to each client machine** you want to back up:<br>
    `git clone https://github.com/MellowTangent/backup-scripts.git`
 3. **Edit the config block at the top of `push-backup.bash`:**
    - `REMOTE_USER` — the username on the server (`whoami` on the server).
    - `REMOTE_HOST` — your server's IP address (`ip a` or `hostname -I` on the server).
-   - `REMOTE_DESTINATION` — the base backup directory on the server.
-   - `LOCAL_SOURCE` — the local folder you're backing up (trailing slash matters for rsync).
+   - `REMOTE_DESTINATION` — the path of the backup directory on the server.
+   - `LOCAL_SOURCE` — the local path of the folder or file you're backing up (trailing slash matters for rsync).
    - `LOG_FILE` — where this machine's backup log gets written.<br>
    `$HOSTNAME` is pulled automatically from the client machine, no config needed.
 4. **Run it manually whenever you want to back up that machine:**
-   `./push-backup.bash`<br>
+   
+   Run the command `./push-backup.bash`<br> 
    You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.
 5. **Copy `mirror-backup.bash` to the backup server**, and edit its config block:
    - `PRIMARY_DRIVE` — the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
