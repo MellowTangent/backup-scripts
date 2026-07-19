@@ -46,6 +46,7 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    Run the following command on both the client and server computers to copy the scripts to your home directory: `cd ~ && git clone https://github.com/MellowTangent/backup-scripts.git`
 3. **Open and edit `push-backup.bash`** (Only edit the strings inside the double quotation marks at the very top of the script)<br>
    Run the following command on the client computer: `cd ~/backup-scripts && nano push-backup.bash`<br>
+   
    Fields to edit:<br>
    - `REMOTE_USER` — the username on the server (`whoami` on the server).
    - `REMOTE_HOST` — your server's IP address (`ip a` or `hostname -I` on the server).
@@ -61,6 +62,7 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    You will see a bunch of stuff running in the terminal and if successful you will see a message `BACKUP SUCCESSFUL!` otherwise you will see `BACKUP FAILED!` which will be logged in a text file inside your home directory.
 5. **Open and edit `mirror-backup.bash`** (Only edit the strings inside the double quotation marks at the very top of the script)<br>
    Run the following command on the server computer: `cd ~/backup-scripts && nano mirror-backup.bash`<br>
+   
    Fields to edit:<br>
    - `PRIMARY_DRIVE` — the path of the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
    - `MIRROR_DRIVE` — the path of the redundant copy destination.
