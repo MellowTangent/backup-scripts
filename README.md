@@ -36,7 +36,7 @@ script.
 
 ## Setup
 1. **Install the requirements** (Windows users need `WSL` installed first)<br> 
-Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each machine (client and server) to make sure `ssh` and `rsync` are installed, otherwise install them via:<br>
+Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use the commands `whereis ssh` and `whereis rsync` on each machine (client and server) to make sure `ssh` and `rsync` are installed, otherwise install them via:<br>
    `sudo apt update`<br>
    `sudo apt install openssh-client openssh-server rsync`<br>
    
