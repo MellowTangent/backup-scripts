@@ -15,7 +15,7 @@ script.
 ## Requirements
 - **Client machine** (push-backup.bash): Windows or any Linux distribution will do here since all we care about is having access to `rsync` and `openssh-client`. These are native on Linux and makes the setup a lot easier.<br>
   On Windows you need to run them via `WSL` (Windows Subsystem for Linux).<br>
-  https://learn.microsoft.com/en-us/windows/wsl/install<br>
+  [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)<br>
   Note: plain Windows (cmd/PowerShell) ships with `ssh` out of the box, but not `rsync`.
 - **Server machine** (mirror-backup.bash): Any Linux box with `rsync` and `openssh-server` installed (most Linux distros ship these by default).<br>
   In my case I decided to use Ubuntu because of its ease of use and stability.
