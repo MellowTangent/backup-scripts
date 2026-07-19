@@ -45,6 +45,7 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
 2. **Clone the repo to copy `push-backup.bash` to each client machine**<br>
 Run the following command to copy the script to your home directory: `cd ~ && git clone https://github.com/MellowTangent/backup-scripts.git`
 3. **Open & Edit `push-backup.bash`** (Only edit the strings inside the double quotation marks at the very top of the script)<br>
+
 Run the following command: `nano push-backup.bash`<br>
 Fields to Edit:<br>
    - `REMOTE_USER` — the username on the server (`whoami` on the server).
