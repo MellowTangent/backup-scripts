@@ -44,15 +44,15 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    On the server, confirm `sshd` is running with `sudo systemctl status ssh`, and if it's not, start it with `sudo systemctl enable --now ssh`.
 2. **Clone the repo and copy `push-backup.bash` to each client machine** you want to back up:<br>
    `git clone https://github.com/MellowTangent/backup-scripts.git`
-3. **Edit the config block at the top of `push-backup.bash`:** (Only edit the strings inside the double quotation marks)<br>
+3. **Edit the config block at the top of `push-backup.bash`** (Only edit the strings inside the double quotation marks)<br>
    - `REMOTE_USER` — the username on the server (`whoami` on the server).
    - `REMOTE_HOST` — your server's IP address (`ip a` or `hostname -I` on the server).
    - `REMOTE_DESTINATION` — the path of the backup directory on the server.
    - `LOCAL_SOURCE` — the local path of the folder or file you're backing up (trailing slash matters for rsync).
    - `LOG_FILE` — where this machine's backup log gets written.<br>
    `$HOSTNAME` is pulled automatically from the client machine, no config needed.
-4. **Run it manually whenever you want to back up that machine**<br>
-   First we want to make the script executable so run the command: `chmod 700 push-backup.bash`<br>
+4. **Run it manually to backup client machine**<br>
+   We want to make the script executable so run the command: `chmod 700 push-backup.bash`<br>
    Run the command `./push-backup.bash`<br> 
    You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.
 5. **Copy `mirror-backup.bash` to the backup server**, make it executable with `chmod 700 mirror-backup.bash`, and edit its config block:
