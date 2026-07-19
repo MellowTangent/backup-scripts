@@ -1,5 +1,5 @@
 # Rsync Based Home Network Backup System
-> **Disclaimer:** These instructions assume you have an intermiadte level of proficiency with computers such as: flashing an ISO onto a USB drive, managing drive partitions/reformats, navigating and running commands on a CLI, running and modifying bash scripts, and general troubleshooting skills if something doesn't work exactly like it does here.
+> **Disclaimer:** These instructions assume you have an intermediate level of proficiency with computers such as: flashing an ISO onto a USB drive, managing drive partitions/reformats, navigating and running commands on a CLI, running and modifying bash scripts, and general troubleshooting skills if something doesn't work exactly like it does here.
 
 A self built backup system for keeping files synced across a
 home network. It consists of a client side push script and a server side mirror
