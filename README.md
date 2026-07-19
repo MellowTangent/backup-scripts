@@ -43,9 +43,9 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    Note: this installs everything needed regardless of the machine's role. The two commands work on both client and server machines.<br>
    On the server, confirm `sshd` is running with `sudo systemctl status ssh`, and if it's not, start it with `sudo systemctl enable --now ssh`.
 2. **Clone the repo to get `push-backup.bash`**<br>
-   Run the following command to copy the script to your home directory: `cd ~ && git clone https://github.com/MellowTangent/backup-scripts.git`
+   Run the following command on both the client and server computers to copy the scripts to your home directory: `cd ~ && git clone https://github.com/MellowTangent/backup-scripts.git`
 3. **Open and edit `push-backup.bash`** (Only edit the strings inside the double quotation marks at the very top of the script)<br>
-   Run the following command: `nano push-backup.bash`<br>
+   Run the following command on the client computer: `cd ~/backup-scripts && nano push-backup.bash`<br>
    Fields to edit:<br>
    - `REMOTE_USER` — the username on the server (`whoami` on the server).
    - `REMOTE_HOST` — your server's IP address (`ip a` or `hostname -I` on the server).
@@ -54,19 +54,23 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    - `LOG_FILE` — where this machine's backup log gets written.<br>
    `$HOSTNAME` is pulled automatically from the client machine, no config needed.<br>
    To save the script and exit the editor press: `Ctrl + O` then `Enter` to confirm, then `Ctrl + X` to exit.
-4. **Run it manually to backup client machine**<br>
+4. **Run `push-backup.bash` manually to backup client machine**<br>
    We want to make the script executable so run the command: `chmod 700 push-backup.bash`<br>
    Run this command to run the script `./push-backup.bash`<br> 
    You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.<br>
    You will see a bunch of stuff running in the terminal and if successful you will see a message `BACKUP SUCCESSFUL!` otherwise you will see `BACKUP FAILED!` which will be logged in a text file inside your home directory.
-5. **Copy `mirror-backup.bash` to the backup server**, make it executable with `chmod 700 mirror-backup.bash`, and edit its config block:
+5. **Open and edit `mirror-backup.bash`** (Only edit the strings inside the double quotation marks at the very top of the script)<br>
+   Run the following command on the server computer: `cd ~/backup-scripts && nano mirror-backup.bash`<br>
+   Fields to edit:<br>
    - `PRIMARY_DRIVE` — the path of the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
    - `MIRROR_DRIVE` — the path of the redundant copy destination.
    - `LOG_FILE` — where the mirror job's log gets written.<br>
+   To save the script and exit the editor press: `Ctrl + O` then `Enter` to confirm, then `Ctrl + X` to exit.<br>
+  We want to make the script executable so run the command `chmod 700 mirror-backup.bash`
    
    Note: this script runs with the switch `--delete` meaning files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to. In essence `MIRROR_DRIVE` is a perfect copy of `PRIMARY_DRIVE` and is not a cumulative copy of all the changes. 
    
-6. **Schedule `mirror-backup.bash` via cron** on the server. Run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command `0 23 */2 * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
+6. **Schedule `mirror-backup.bash`.** On the server computer run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command at the VERY END of the file `0 23 */2 * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
 
 ## Why did I decide to build this?
 I rebuilt the whole backup system from scratch to practice bash scripting, system admin fundamentals, CLI fluency, and to design a backup system on my own without following tutorials or asking AI for a step by step process. This implementation was guided by the friction encountered while designing the system piece by piece.
