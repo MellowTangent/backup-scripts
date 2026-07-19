@@ -77,7 +77,7 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
 6. **Schedule `mirror-backup.bash`.** On the server computer run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command at the VERY END of the file `0 23 */2 * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
 
 ## Why did I decide to build this?
-I rebuilt my entire backup system so I could practice bash scripting, system administration, CLI fluency, and to design a backup system driven by my own logic and needs. This implementation was guided by the friction encountered while designing the system bit by bit. The project started as a simple one liner command that was ran whenever `rsync -avh --progress "/path/to/local/folder/" "youruser@your.server.ip:/path/to/backup/destination/"`.
+I rebuilt my entire backup system so I could practice bash scripting, system administration, CLI fluency, and to design a backup system driven by my own logic and needs. This implementation was guided by the friction encountered while designing the system bit by bit. The project started as a simple one liner command that was run whenever `rsync -avh --progress "/path/to/local/folder/" "youruser@your.server.ip:/path/to/backup/destination/"`.
 
 The project slowly evolved into an extensive overhaul of a very simple backup system. The initial backup system consisted of me manually dragging and dropping folders/files into a shared network folder located in the server running a copy of Windows XP. This backup method lacked structure, redundancy, automation, and security. Thus the need for something more robust, interactive, with built in redundancy.
 
