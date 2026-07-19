@@ -40,7 +40,7 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    `sudo apt update`<br>
    `sudo apt install openssh-client openssh-server rsync`<br>
    Note: this installs everything needed regardless of the machine's role, so the same two commands work on both client and server machines.<br>
-   On the server, confirm `sshd` is running with `sudo systemctl status ssh`, and if it's not, start it with `sudo systemctl enable --now ssh`.
+   On the server, confirm `sshd` is running with `sudo systemctl status ssh`, and if it's not, start it with<br> `sudo systemctl enable --now ssh`.
 2. **Clone the repo and copy `push-backup.bash` to each client machine** you want to back up:<br>
    `git clone https://github.com/MellowTangent/backup-scripts.git`
 3. **Edit the config block at the top of `push-backup.bash`:**
