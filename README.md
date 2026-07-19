@@ -50,7 +50,7 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
    - `REMOTE_USER` — the username on the server (`whoami` on the server).
    - `REMOTE_HOST` — your server's IP address (`ip a` or `hostname -I` on the server).
    - `REMOTE_DESTINATION` — the path of the backup directory on the server. Run `df -h` on the server to see mounted paths.
-   - `LOCAL_SOURCE` — the local path of the folder or file you're backing up (trailing slash matters for rsync). Run `df -h` to see mounted paths. Note: if you're on Windows via `WSL`, your Windows drives are mounted under `/mnt/`, e.g. your C: drive is `/mnt/c/`, not `/c/` or `C:\`.
+   - `LOCAL_SOURCE` — the local path of the folder or file you're backing up (trailing slash matters for rsync). Run `df -h` to see mounted paths (use column 6: Mounted on, for correct path and use the same forward slash format for the rest of the path). Note: if you're on Windows via `WSL`, your Windows drives are mounted under `/mnt/`, e.g. your C: drive is `/mnt/c/`, not `/c/` or `C:\`.
    - `LOG_FILE` — where this machine's backup log gets written.<br>
    `$HOSTNAME` is pulled automatically from the client machine, no config needed.<br>
    To save the script and exit the editor press: `Ctrl + O` then `Enter` to confirm, then `Ctrl + X` to exit.
