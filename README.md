@@ -42,12 +42,11 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    
    Note: this installs everything needed regardless of the machine's role. The two commands work on both client and server machines.<br>
    On the server, confirm `sshd` is running with `sudo systemctl status ssh`, and if it's not, start it with `sudo systemctl enable --now ssh`.
-2. **Clone the repo to copy `push-backup.bash` to each client machine**<br>
-  Run the following command to copy the script to your home directory: `cd ~ && git clone https://github.com/MellowTangent/backup-scripts.git`
-3. **Open & Edit `push-backup.bash`** (Only edit the strings inside the double quotation marks at the very top of the script)<br>
-
-Run the following command: `nano push-backup.bash`<br>
-Fields to Edit:<br>
+2. **Clone the repo to get `push-backup.bash`**<br>
+   Run the following command to copy the script to your home directory: `cd ~ && git clone https://github.com/MellowTangent/backup-scripts.git`
+3. **Open and edit `push-backup.bash`** (Only edit the strings inside the double quotation marks at the very top of the script)<br>
+   Run the following command: `nano push-backup.bash`<br>
+   Fields to edit:<br>
    - `REMOTE_USER` — the username on the server (`whoami` on the server).
    - `REMOTE_HOST` — your server's IP address (`ip a` or `hostname -I` on the server).
    - `REMOTE_DESTINATION` — the path of the backup directory on the server.
