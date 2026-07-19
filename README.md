@@ -56,7 +56,7 @@ script.
    
    Note: this script runs with the switch `--delete` meaning files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to. In essence `MIRROR_DRIVE` is a perfect copy of `PRIMARY_DRIVE` and is not a cumulative copy of all the changes. 
    
-6. **Schedule `mirror-backup.bash` via cron** on the server run the command `crontab -e` this will open crontab in a text editor (usually the systems default like nano). Then append the following command `0 23 */2 * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
+6. **Schedule `mirror-backup.bash` via cron** on the server. Run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command `0 23 */2 * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
 
 ## Why did I decide to build this?
 I rebuilt the whole backup system from scratch to practice bash scripting, system admin fundamentals, CLI fluency, and to design a backup system on my own without following tutorials or asking AI for a step by step process. This implementation was guided by the friction encountered while designing the system piece by piece.
