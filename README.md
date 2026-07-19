@@ -58,7 +58,7 @@ script.
    
 6. **Schedule `mirror-backup.bash` via cron** on the server, e.g.:
    `0 23 */2 * * /path/to/mirror-backup.bash`
-## Why this exists
+## Why did I decide to build this?
 I rebuilt the whole backup system from scratch to practice bash scripting, system admin fundamentals, CLI fluency, and to design a backup system on my own without following tutorials or asking AI for a step by step process. This implementation was guided by the friction encountered while designing the system piece by piece.
 
 This started as an overhaul to a very simple backup system using a shared network folder using two networked (LAN) Windows machines. The intial backup system was simple and consisted of me manually dragging and dropping folders/files into the shared network folder located in the server machine. This backup method lacked structure, redundancy, and any form of automation. The server machine was already sitting idle in the living room running a copy of Windows XP. Now Windows 11 requires `TPM` (Trusted Platform Module) and the `MSI B150M BAZOOKA PLUS` is an old motherboard (LGA 1151 socket) so Windows 11 was never an option. Thus running an unsupported and insecure OS was part of what pushed me to rebuild the whole system using Linux as the base.
