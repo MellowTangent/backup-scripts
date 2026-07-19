@@ -52,11 +52,13 @@ Open the terminal and use the commands `whereis ssh` and `whereis rsync` on each
    - `REMOTE_DESTINATION` — the path of the backup directory on the server.
    - `LOCAL_SOURCE` — the local path of the folder or file you're backing up (trailing slash matters for rsync).
    - `LOG_FILE` — where this machine's backup log gets written.<br>
-   `$HOSTNAME` is pulled automatically from the client machine, no config needed.
+   `$HOSTNAME` is pulled automatically from the client machine, no config needed.<br>
+   To save the script and exit the editor press: `Ctrl + O` then `Enter` to confirm, then `Ctrl + X` to exit.
 4. **Run it manually to backup client machine**<br>
    We want to make the script executable so run the command: `chmod 700 push-backup.bash`<br>
-   Run the command `./push-backup.bash`<br> 
-   You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.
+   Run this command to run the script `./push-backup.bash`<br> 
+   You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.<br>
+   You will see a bunch of stuff running in the terminal and if succesful you will see a message `BACKUP SUCCESSFUL!` otherwise you will see `BACKUP FAILED!` which will be logged in a text file inside your home directory.
 5. **Copy `mirror-backup.bash` to the backup server**, make it executable with `chmod 700 mirror-backup.bash`, and edit its config block:
    - `PRIMARY_DRIVE` — the path of the main backup drive being mirrored (`lsblk` or `df -h` to find mounted drives).
    - `MIRROR_DRIVE` — the path of the redundant copy destination.
