@@ -1,5 +1,5 @@
 # Backup Scripts
-> **Disclaimer:** These instructions assume you have a certain level of proficiency with computers such as: flashing an ISO onto a USB drive, managing drive partitons/reformats, navigating and running commands on a CLI, running and modifying bash scripts, and general troubleshooting skills if something doesn't work exactly like it does here.
+> **Disclaimer:** These instructions assume you have a certain level of proficiency with computers such as: flashing an ISO onto a USB drive, managing drive partitions/reformats, navigating and running commands on a CLI, running and modifying bash scripts, and general troubleshooting skills if something doesn't work exactly like it does here.
 
 A self built backup system for keeping files synced across a
 home network. It consists of a client side push script and a server side mirror
@@ -56,8 +56,8 @@ script.
    
    Note: this script runs with the switch `--delete` meaning files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to. In essence `MIRROR_DRIVE` is a perfect copy of `PRIMARY_DRIVE` and is not a cumulative copy of all the changes. 
    
-6. **Schedule `mirror-backup.bash` via cron** on the server, e.g.:
-   `0 23 */2 * * /path/to/mirror-backup.bash`
+6. **Schedule `mirror-backup.bash` via cron** on the server run the command `crontab -e` this will open crontab in a text editor (usually the systems default like nano). Then append the following command `0 23 */2 * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
+
 ## Why did I decide to build this?
 I rebuilt the whole backup system from scratch to practice bash scripting, system admin fundamentals, CLI fluency, and to design a backup system on my own without following tutorials or asking AI for a step by step process. This implementation was guided by the friction encountered while designing the system piece by piece.
 
@@ -69,3 +69,6 @@ This started as an overhaul to a very simple backup system using a shared networ
 - **Mirror-backup.bash runs automatically:** The server runs on outdated hardware for two reasons: low energy consumption, and because it's what I had lying around. The sync itself needs no human intervention and runs automatically on a set schedule that can be adjusted to your liking. 
 - **Month/day nested folder structure:** Balancing storage efficiency with recovery granularity: backups are only pushed when something meaningful actually changed, which naturally avoids wasted, redundant daily snapshots. Pushing on your own schedule also means you can adapt to how much things are actually changing, backing up more often during busy stretches and less during quiet ones.
 - **Logging to a single-line, pipe-delimited format:** Logs let you check what happened after each `rsync` run without needing to be present or watching live, especially useful for the mirror job, which runs unattended.
+
+## Author
+Hector Rico — [MellowTangent](https://github.com/MellowTangent) · [LinkedIn](https://www.linkedin.com/in/hectorricodev/)
