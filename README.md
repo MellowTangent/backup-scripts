@@ -1,5 +1,5 @@
 # Rsync Based Home Network Backup System
-> **Disclaimer** — These instructions assume you have an intermediate level of proficiency with computers such as: flashing an ISO onto a USB drive, managing drive partitions/reformats, navigating and running commands on a CLI, running and modifying bash scripts, and general troubleshooting skills if something doesn't work exactly like it does here.
+> **Disclaimer** — These instructions assume you have an intermediate level of proficiency with computers such as: flashing an ISO onto a USB drive, managing drive partitions/reformats, navigating and running commands on a CLI (command line interface), running and modifying bash scripts, and general troubleshooting skills if something doesn't work exactly like it does here.
 
 A self built backup system for keeping files synced across a
 home network. It consists of a client side push script and a server side mirror
@@ -33,7 +33,7 @@ script.
 - **Client machine specs:**<br>
   OS: Any Linux Distribution or Windows running `WSL`<br>
   
-  Note: The rest of the systems components don't matter as long as you can run a CLI (command line interface).
+  Note: The rest of the computers components don't matter as long as you can run a CLI.
 
 ## Setup
 1. **Install the requirements.** Make sure `rsync` and `openssh-client` are available on each client machine (see Requirements above — Windows users need `WSL` installed first), and that the server has `rsync` and `openssh-server` running.
