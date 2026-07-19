@@ -83,8 +83,9 @@ This started as an overhaul to a very simple backup system using a shared networ
 - **Mirror-backup.bash runs automatically:** The server runs on outdated hardware for two reasons: low energy consumption, and because it's what I had lying around. The sync itself needs no human intervention and runs automatically on a set schedule that can be adjusted to your liking. 
 - **Month/day nested folder structure:** Balancing storage efficiency with recovery granularity: backups are only pushed when something meaningful actually changed, which naturally avoids wasted, redundant daily snapshots. Pushing on your own schedule also means you can adapt to how much things are actually changing, backing up more often during busy stretches and less during quiet ones.
 - **Logging to a single-line, pipe-delimited format:** Logs let you check what happened after each `rsync` run without needing to be present or watching live, especially useful for the mirror job, which runs unattended.
-- **Future improvements:** Setting up automatic SSH key based authentication as an alternative to the password prompt, implementing a loop structure in both scripts, and adding input validation. The confirmation menu will likely be modified to fit the loop structure better.
 - **Security:** The server didn't have any firewalls deployed initially, to avoid `ssh` connectivity issues while the backup implementation was still being built out. Once the implementation was rock solid, firewalls were activated on the server.
+- **Future improvements:** Setting up automatic SSH key based authentication as an alternative to the password prompt, implementing a loop structure in both scripts, and adding input validation. The confirmation menu will likely be modified to fit the loop structure better.
+
 
 ## Author
 Hector Rico — [MellowTangent](https://github.com/MellowTangent) · [LinkedIn](https://www.linkedin.com/in/hectorricodev/)
