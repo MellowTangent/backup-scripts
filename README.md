@@ -1,9 +1,13 @@
 # Rsync Based Home Network Backup System
-> **Disclaimer** — These instructions assume you have an intermediate level of proficiency with computers such as: flashing an ISO onto a USB drive, managing drive partitions/reformats, navigating and running commands on a CLI (command line interface), running and modifying bash scripts, and general troubleshooting skills if something doesn't work exactly like it does here.
+
+> **Disclaimer** — These instructions assume you have an intermediate level of proficiency. You should be familiar with flashing an ISO onto a USB drive, managing drive partitions/reformats, navigating and running commands on a CLI (command line interface), running and modifying bash scripts, and general troubleshooting skills.
+
+> **AI Use** — Built and debugged this myself with help from Claude to check syntax, catch weird bugs, explain messy rsync/cron behavior, and brainstorm some of the design choices below.
 
 A self built backup system for keeping files synced across a
 home network. It consists of a client side push script and a server side mirror
-script. 
+script.
+
 ## Overview
 - **push-backup.bash** — Pushes `folders/files` to the server with `rsync` via a `ssh` connection to the server. A folder named after the machine's `hostname` and the current `date` is created in the server, nested like this: (`./hostname/YYYY-MM/YYYY-MM-DD/`).<br>
   Each backup gets its own snapshot instead of overwriting the last one so you get the level of granularity that you desire with a snapshot resolution of up to a day.<br>
@@ -58,7 +62,7 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
    We want to make the script executable so run the command: `chmod 700 push-backup.bash`<br>
    Run this command to run the script `./push-backup.bash`<br> 
    You'll be prompted to confirm (`1` for yes, `2` for no) before anything runs.<br>
-   You will see a bunch of stuff running in the terminal and if successful you will see a message `BACKUP SUCCESSFUL!` otherwise you will see `BACKUP FAILED!` which will be logged in a text file inside your home directory.
+   You will see a bunch of stuff running in the terminal, and either `BACKUP SUCCESSFUL!` or `BACKUP FAILED!` — both outcomes get logged to a text file in your home directory.
 5. **Open and edit `mirror-backup.bash`** (Only edit the strings inside the double quotation marks at the very top of the script)<br>
    Run the following command on the server computer: `cd ~/backup-scripts && nano mirror-backup.bash`<br>
    Fields to edit:<br>
@@ -73,18 +77,20 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
 6. **Schedule `mirror-backup.bash`.** On the server computer run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command at the VERY END of the file `0 23 */2 * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
 
 ## Why did I decide to build this?
-I rebuilt the whole backup system from scratch to practice bash scripting, system administration, CLI fluency, and to design a backup system on my own without following tutorials or asking AI for a step by step process. This implementation was guided by the friction encountered while designing the system piece by piece.
+I rebuilt my entire backup system so I could practice bash scripting, system administration, CLI fluency, and to design a backup system driven by my own logic and needs. This implementation was guided by the friction encountered while designing the system bit by bit. The project started as a simple one liner command that was run whenever `rsync -avh --progress "/path/to/local/folder/" "youruser@your.server.ip:/path/to/backup/destination/"`.
 
-This was an overhaul to a very simple backup system using two Windows machines. The intial backup system consisted of me manually dragging and dropping folders/files into a shared network folder located in the server machine. This backup method lacked structure, redundancy, or any form of automation. The server was running a copy of Windows XP which we all know is no longer supported. Another thing to remember is that Windows 11 requires `TPM` (Trusted Platform Module) to be able to run and the `MSI B150M BAZOOKA PLUS` is an old motherboard (LGA 1151 socket) so Windows 11 was never an option for this machine. This is one of the major reasons for going with Linux as my base OS. It allowed me to breathe new life into the hardware (not a resource hog) and simplified the implementation of the backup system.
+The project slowly evolved into an extensive overhaul of a very simple backup system. The initial backup system consisted of me manually dragging and dropping folders/files into a shared network folder located in the server running a copy of Windows XP. This backup method lacked structure, redundancy, automation, and security. Thus the need for something more robust, interactive, with built in redundancy.
 
 ### Design notes
+- **Why Linux instead of Windows for the server?** the server's motherboard (`MSI B150M BAZOOKA PLUS`, LGA 1151 socket) doesn't support `TPM` (Trusted Platform Module), which Windows 11 requires to install. That ruled out running the latest Windows on this hardware entirely, and was a big part of why Linux made sense here.
+- **Why not a true headless Ubuntu server?** This was my first time running a full Linux distro on its own drive, not as a partition or a USB ISO, and administering it almost entirely through the CLI over an SSH connection. I wanted the familiarity of a GUI as a fallback while I got comfortable with that, and there are some applications I'll be installing down the line that only have a GUI.
 - **Push (client) vs. pull (server) architecture:** The client machine(s) push on-demand rather than the server pulling on a schedule. In my case the client machine is a high end PC so running it 24/7 makes no sense for my use case and thus it pulls when the user feels there are sufficient changes that need backup. A server-side pull job would essentially force me to keep the client machine powered on just for automation's sake, not worth it. It also forces me to have very high capacity drive(s) to store a lot of backups. Push-on-demand means client machines can be turned on or off as they are needed the only downside being that backups are user dependent and not set and forget. 
-- **The confirmation prompt in push-backup.bash is intentional friction:** The script asks before it runs anything, rather than just firing off silently. This is not an oversight it is a deliberate checkpoint so a backup never kicks off by accident or in case the user decides to change his mind.
+- **The confirmation prompt in push-backup.bash is intentional friction:** The script asks before it runs anything, rather than just firing off silently. This is not an oversight it is a deliberate checkpoint so a backup never kicks off by accident or in case the user decides to change their mind.
 - **Mirror-backup.bash runs automatically:** The server runs on outdated hardware for two reasons: low energy consumption, and because it's what I had lying around. The sync itself needs no human intervention and runs automatically on a set schedule that can be adjusted to your liking. 
 - **Month/day nested folder structure:** Balancing storage efficiency with recovery granularity: backups are only pushed when something meaningful actually changed, which naturally avoids wasted, redundant daily snapshots. Pushing on your own schedule also means you can adapt to how much things are actually changing, backing up more often during busy stretches and less during quiet ones.
 - **Logging to a single-line, pipe-delimited format:** Logs let you check what happened after each `rsync` run without needing to be present or watching live, especially useful for the mirror job, which runs unattended.
 - **Security:** The server didn't have any firewalls deployed initially, to avoid `ssh` connectivity issues while the backup implementation was still being built out. Once the implementation was rock solid, firewalls were activated on the server.
-- **Future improvements:** Setting up automatic SSH key based authentication as an alternative to the password prompt, implementing a loop structure in both scripts, and adding input validation. The confirmation menu will likely be modified to fit the loop structure better.
+- **Future improvements:** Setting up a true headless server and automatic SSH key based authentication as an alternative to the password prompt, implementing a loop structure in both scripts, and adding input validation. The confirmation menu will likely be modified to fit the loop structure better.
 
 ## Author
 Hector Rico — [MellowTangent](https://github.com/MellowTangent) · [LinkedIn](https://www.linkedin.com/in/hectorricodev/)
