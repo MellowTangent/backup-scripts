@@ -11,7 +11,7 @@ REMOTE_USER="youruser"                        #  username of account associated 
 REMOTE_HOST="192.168.1.1"                     # replace with your server's IP
 REMOTE_DESTINATION="/path/to/backup/drive"    # base backup directory on the server
 LOCAL_SOURCE="/path/to/local/folder/"         # what you're backing up (trailing slash matters for rsync)
-LOG_FILE="$HOME/push-log.txt"
+LOG_FILE="$HOME/push.log"
 # ----------------------------------------------------------------------------------
 
 month=$(date +"%Y-%m")  # initialize variable with date in the following format: YYYY-MM
@@ -30,6 +30,7 @@ if [ "$user_input" -eq 1 ]; then
     # -a: archive mode (preserves permissions, timestamps, symlinks, recursive)
     # -v: verbose output
     # -h: human-readable sizes
+    # -n: test run
     # --progress: live transfer progress
     # --mkpath: automatically create the full destination path if it doesn't exist
     rsync -avh --progress --mkpath "$LOCAL_SOURCE" "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DESTINATION}/$HOSTNAME/$month/$day/"
