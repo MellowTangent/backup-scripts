@@ -8,7 +8,7 @@
 # --- CONFIG: Edit the stuff inside the quotation marks according to your system ---
 PRIMARY_DRIVE="/path/to/primary/backup/drive/"      # the main backup drive being mirrored
 MIRROR_DRIVE="/path/to/mirror/backup/drive/"         # the redundant copy destination
-LOG_FILE="$HOME/mirror-log.txt"
+LOG_FILE="$HOME/mirror.log"
 # ----------------------------------------------------------------------------------
 
 start_time=$(date +%s) # record job start time
@@ -17,6 +17,7 @@ start_time=$(date +%s) # record job start time
 # -a: archive mode (preserves permissions, timestamps, symlinks, recursive)
 # -v: verbose output
 # -h: human-readable sizes
+# -n: test run
 # --delete: remove files from the mirror that no longer exist on the primary,
 #           keeping this a true mirror rather than an ever-growing archive
 rsync -avh --delete "$PRIMARY_DRIVE" "$MIRROR_DRIVE"
