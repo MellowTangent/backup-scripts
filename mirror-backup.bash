@@ -38,9 +38,9 @@ disk1=$(df -h "$MIRROR_DRIVE" | tail -n 1 | awk '{print $5}')
 disk2=$(df -h "$PRIMARY_DRIVE" | tail -n 1 | awk '{print $5}')
 
 if [ $rsync_status -eq 0 ]; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') | SUCCESS | Duration: ${hours}h ${minutes}m ${seconds}s | Mirror: $disk1 | Primary: $disk2" >> "$LOG_FILE"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') | SUCCESS | Mirror: $disk1 | Primary: $disk2 | Duration: ${hours}h ${minutes}m ${seconds}s" >> "$LOG_FILE"
 else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') | FAILED | Duration: ${hours}h ${minutes}m ${seconds}s | Mirror: $disk1 | Primary: $disk2" >> "$LOG_FILE"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') | FAILED | Mirror: $disk1 | Primary: $disk2 | Duration: ${hours}h ${minutes}m ${seconds}s" >> "$LOG_FILE"
 fi
 
 # The log is structured in a single line so that it is easy to grep/parse later.
