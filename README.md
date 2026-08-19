@@ -2,7 +2,7 @@
 
 > **Disclaimer** — These instructions assume you have an intermediate level of proficiency. You should be familiar with flashing an ISO onto a USB drive, managing drive partitions/reformats, navigating and running commands on a CLI (command line interface), running and modifying bash scripts, setting up ssh keys, and general troubleshooting skills.
 
-> **AI Use** — Claude AI was used as a glorified spell checker and to brainstorm design choices everyting was coded and debugged by a human.
+> **AI Use** — Claude AI was used as a glorified spell checker and to brainstorm design choices.
 
 A self built backup system for keeping files synced across a
 home network. It consists of a client side push script and a server side mirror
