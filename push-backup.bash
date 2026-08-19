@@ -11,8 +11,8 @@ REMOTE_USER="youruser"                        #  username of account associated 
 REMOTE_HOST="192.168.1.1"                     # replace with your server's IP
 REMOTE_DESTINATION="/path/to/backup/drive"    # base backup directory on the server
 LOCAL_SOURCE="/path/to/local/folder/"         # what you're backing up (trailing slash matters for rsync)
-LOG_FILE="$HOME/push.log"
-SSH_KEY="$HOME/.ssh/file_name"
+LOG_FILE="$HOME/push.log"                     # The file that logs activity located in the home dir
+SSH_KEY="$HOME/.ssh/file_name"                # replace file_name with actual name of file containing the private key
 # ----------------------------------------------------------------------------------
 
 month=$(date +"%Y-%m")  # initialize variable with date in the following format: YYYY-MM
