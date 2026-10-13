@@ -7,12 +7,12 @@
 # own granular snapshot without keeping every single day.
 
 # --- CONFIG: Edit the stuff inside the quotation marks according to your system ---
-REMOTE_USER="youruser"                        #  username of account associated with machine that is being backed up
-REMOTE_HOST="192.168.1.1"                     # replace with your server's IP
-REMOTE_DESTINATION="/path/to/backup/drive"    # base backup directory on the server
-LOCAL_SOURCE="/path/to/local/folder/"         # what you're backing up (trailing slash matters for rsync)
+REMOTE_USER="youruser"                        # username of account associated with backup server
+REMOTE_HOST="192.168.1.1"                     # backup server's IP
+REMOTE_DESTINATION="/path/to/backup/drive"    # destination folder in the backup server
+LOCAL_SOURCE="/path/to/local/folder/"         # folders that you're backing up (if on windows use: /mnt/c/.../)
 LOG_FILE="$HOME/push.log"                     # The file that logs activity located in the home dir
-SSH_KEY="$HOME/.ssh/file_name"                # replace file_name with actual name of file containing the private key
+SSH_KEY="$HOME/.ssh/file_name"                # name of file containing the private key (found under ~/.ssh/)
 # ----------------------------------------------------------------------------------
 
 month=$(date +"%Y-%m")  # initialize variable with date in the following format: YYYY-MM
