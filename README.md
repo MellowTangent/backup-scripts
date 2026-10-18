@@ -9,7 +9,7 @@ home network. It consists of a client side push script and a server side mirror
 script.
 
 ## Why I decided to build this?
-My very first backup system consisted of me manually dragging and dropping folders/files into a shared network folder located on a computer running Windows XP. The backup method lacked security, redundancy and automation. Thus, I decided to try something new and since I was beginning to learn Linux I chose it for the next iteration so I could repurpose the old hardware.
+My very first backup system consisted of me manually dragging and dropping folders/files into a shared network folder located on a computer running Windows XP. The backup method lacked security, redundancy and automation. Thus, I decided to try something new and since I was beginning to learn Linux I chose it for the next iteration this way I could repurpose the old hardware.
 
 The second version of the backup system consisted of a server running Ubuntu and the clients on Windows running WSL. The backup system was literally just a one line command.
 
