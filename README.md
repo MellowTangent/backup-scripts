@@ -78,7 +78,7 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
    
 6. **Schedule `mirror-backup.bash`.** On the server computer run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command at the VERY END of the file `0 3 * * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
 
-## Why did I decide to build this?
+## Why I decided to build this?
 My very first backup system consisted of me manually dragging and dropping folders/files into a shared network folder located on a computer running Windows XP. The backup method lacked security, redundancy and automation. Thus, I decided to try something new and since I was beginning to learn Linux I chose it for the next iteration so I could repurpose the old hardware.
 
 The second version of the backup system consisted of a server running Ubuntu and the clients on Windows running WSL. The backup system was literally just a one line command.
