@@ -8,6 +8,16 @@ A self built backup system for keeping files synced across a
 home network. It consists of a client side push script and a server side mirror
 script.
 
+## Why I decided to build this?
+My very first backup system consisted of me manually dragging and dropping folders/files into a shared network folder located on a computer running Windows XP. The backup method lacked security, redundancy and automation. Thus, I decided to try something new and since I was beginning to learn Linux I chose it for the next iteration so I could repurpose the old hardware.
+
+The second version of the backup system consisted of a server running Ubuntu and the clients on Windows running WSL. The backup system was literally just a one line command.
+
+Example of one-liner command: `rsync -avh --progress "/path/to/local/folder/" "username@serverip:/path/to/backup/destination/"`.
+
+This project was finally born after realizing that I needed something more robust, interactive, with built-in redundancy, automation, and logging. This new backup system is the result, built on the lessons learned from the older versions.
+
+
 ## Overview
 - **push-backup.bash** — Pushes `folders/files` to the server with `rsync` via a `ssh` connection to the server. A folder named after the machine's `hostname` and the current `date` is created in the server, nested like this: (`./hostname/YYYY-MM/YYYY-MM-DD/`).<br>
   Each backup gets its own snapshot instead of overwriting the last one so you get the level of granularity that you desire with a snapshot resolution of up to a day.<br>
@@ -77,15 +87,6 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
    Note: this script runs with the switch `--delete` meaning files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to. In essence `MIRROR_DRIVE` is a perfect copy of `PRIMARY_DRIVE` and is not a cumulative copy of all the changes. 
    
 6. **Schedule `mirror-backup.bash`.** On the server computer run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command at the VERY END of the file `0 3 * * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
-
-## Why I decided to build this?
-My very first backup system consisted of me manually dragging and dropping folders/files into a shared network folder located on a computer running Windows XP. The backup method lacked security, redundancy and automation. Thus, I decided to try something new and since I was beginning to learn Linux I chose it for the next iteration so I could repurpose the old hardware.
-
-The second version of the backup system consisted of a server running Ubuntu and the clients on Windows running WSL. The backup system was literally just a one line command.
-
-Example of one-liner command: `rsync -avh --progress "/path/to/local/folder/" "username@serverip:/path/to/backup/destination/"`.
-
-This project was finally born after realizing that I needed something more robust, interactive, with built-in redundancy, automation, and logging. This new backup system is the result, built on the lessons learned from the older versions.
 
 ### Design notes
 - **Why Linux instead of Windows for the server?** the server's motherboard (`MSI B150M BAZOOKA PLUS`, LGA 1151 socket) doesn't support `TPM` (Trusted Platform Module), which Windows 11 requires to install. That ruled out running the latest Windows on this hardware entirely, and was a big part of why Linux made sense here.
