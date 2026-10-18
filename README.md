@@ -79,11 +79,13 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
 6. **Schedule `mirror-backup.bash`.** On the server computer run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command at the VERY END of the file `0 3 * * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
 
 ## Why did I decide to build this?
-I rebuilt my entire backup system so I could practice bash scripting, system administration, CLI fluency, and to design a backup system driven by my own logic and needs. This implementation was guided by the friction encountered while designing the system bit by bit. The project started as a simple one liner command that was run whenever I needed to backup my machine. 
+My very first backup system consisted of me manually dragging and dropping folders/files into a shared network folder located in the server running a copy of Windows XP. This backup method lacked structure, redundancy, automation, and security.
+
+The second version of the backup system consisted of a server running Ubuntu and the clients on Windows running WSL. The backup system was literally just a one line command.
 
 Example of one-liner command: `rsync -avh --progress "/path/to/local/folder/" "username@serverip:/path/to/backup/destination/"`.
 
-The project slowly evolved into an extensive overhaul of a very simple backup system. My very first backup system consisted of me manually dragging and dropping folders/files into a shared network folder located in the server running a copy of Windows XP. This backup method lacked structure, redundancy, automation, and security. Thus the need for something more robust, interactive, with built in redundancy.
+This project was finally born after realizing that I needed something more robust, interactive, with built in redundancy and automation.
 
 ### Design notes
 - **Why Linux instead of Windows for the server?** the server's motherboard (`MSI B150M BAZOOKA PLUS`, LGA 1151 socket) doesn't support `TPM` (Trusted Platform Module), which Windows 11 requires to install. That ruled out running the latest Windows on this hardware entirely, and was a big part of why Linux made sense here.
