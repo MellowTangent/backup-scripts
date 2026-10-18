@@ -14,7 +14,7 @@ script.
   The script is manually ran on the machine to be backed up.
 - **mirror-backup.bash** — Mirrors the primary backup drive (Drive A) onto a second drive (Drive B) with `rsync`, no `ssh` connection required.
   If the primary drive dies (Drive A), there is still a recent copy on the secondary drive (Drive B).<br> 
-  This script runs automatically every two days as a cronjob and runs on the server itself which should be running 24/7.
+  This script runs automatically every day as a cronjob and runs on the server itself which should be running 24/7.
   
 ## Requirements
 - **Client machine** (push-backup.bash): Windows or any Linux distribution will do here since all we care about is having access to `rsync` and `openssh-client`. These are native on Linux and makes the setup a lot easier.<br>
@@ -57,7 +57,7 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
    - `LOCAL_SOURCE` — the local path of the folder or file you're backing up (trailing slash matters for rsync). Run `df -h` to see mounted paths (use column 6: Mounted on, for correct path and use the same forward slash format for the rest of the path). Note: if you're on Windows via `WSL`, your Windows drives are mounted under `/mnt/`, e.g. your C: drive is `/mnt/c/`, not `/c/` or `C:\`.
    - `LOG_FILE` — where this machine's backup log gets written.<br>
    `$HOSTNAME` is pulled automatically from the client machine, no config needed.<br>
-   - `SSH_KEY` — The locaion where you can find your ssh keys usually under home/user/.ssh/<br>
+   - `SSH_KEY` — The location (Linux/WSL) where you can find your ssh keys usually under home/user/.ssh/<br>
 
    To save the script and exit the editor press: `Ctrl + O` then `Enter` to confirm, then `Ctrl + X` to exit.
 4. **Run `push-backup.bash` manually to backup client machine**<br>
@@ -76,24 +76,26 @@ Open the terminal in preferred Linux Distro or use `WSL` if on Windows and use t
    
    Note: this script runs with the switch `--delete` meaning files removed from `PRIMARY_DRIVE` are removed from `MIRROR_DRIVE` too on the next run, not just added to. In essence `MIRROR_DRIVE` is a perfect copy of `PRIMARY_DRIVE` and is not a cumulative copy of all the changes. 
    
-6. **Schedule `mirror-backup.bash`.** On the server computer run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command at the VERY END of the file `0 23 */2 * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
+6. **Schedule `mirror-backup.bash`.** On the server computer run the command `crontab -e`; this will open crontab in a text editor (usually the system's default like nano). Then append the following command at the VERY END of the file `0 3 * * * /home/youruser/mirror-backup.bash` with the correct path substitution according to your system.  
 
 ## Why did I decide to build this?
-I rebuilt my entire backup system so I could practice bash scripting, system administration, CLI fluency, and to design a backup system driven by my own logic and needs. This implementation was guided by the friction encountered while designing the system bit by bit. The project started as a simple one liner command that was run whenever `rsync -avh --progress "/path/to/local/folder/" "youruser@your.server.ip:/path/to/backup/destination/"`.
+I rebuilt my entire backup system so I could practice bash scripting, system administration, CLI fluency, and to design a backup system driven by my own logic and needs. This implementation was guided by the friction encountered while designing the system bit by bit. The project started as a simple one liner command that was run whenever I needed to backup my machine. 
 
-The project slowly evolved into an extensive overhaul of a very simple backup system. The initial backup system consisted of me manually dragging and dropping folders/files into a shared network folder located in the server running a copy of Windows XP. This backup method lacked structure, redundancy, automation, and security. Thus the need for something more robust, interactive, with built in redundancy.
+Example of one-liner command: `rsync -avh --progress "/path/to/local/folder/" "username@serverip:/path/to/backup/destination/"`.
+
+The project slowly evolved into an extensive overhaul of a very simple backup system. My very first backup system consisted of me manually dragging and dropping folders/files into a shared network folder located in the server running a copy of Windows XP. This backup method lacked structure, redundancy, automation, and security. Thus the need for something more robust, interactive, with built in redundancy.
 
 ### Design notes
 - **Why Linux instead of Windows for the server?** the server's motherboard (`MSI B150M BAZOOKA PLUS`, LGA 1151 socket) doesn't support `TPM` (Trusted Platform Module), which Windows 11 requires to install. That ruled out running the latest Windows on this hardware entirely, and was a big part of why Linux made sense here.
-- **Why not a true headless Ubuntu server?** This was my first time running a full Linux distro on its own drive, not as a partition or a USB ISO, and administering it almost entirely through the CLI over an SSH connection. I wanted the familiarity of a GUI as a fallback while I got comfortable with that, and there are some applications I'll be installing down the line that only have a GUI.
+- **Why not a true headless Ubuntu server?** This was my first time running a full Linux distro on its own drive, not as a partition or a USB ISO, and administering it almost entirely through the CLI over an SSH connection. I wanted the familiarity of a GUI as a fallback in case anything happened.
 - **Push (client) vs. pull (server) architecture:** The client machine(s) push on-demand rather than the server pulling on a schedule. In my case the client machine is a high end PC so running it 24/7 makes no sense for my use case and thus it pulls when the user feels there are sufficient changes that need backup. A server-side pull job would essentially force me to keep the client machine powered on just for automation's sake, not worth it. It also forces me to have very high capacity drive(s) to store a lot of backups. Push-on-demand means client machines can be turned on or off as they are needed the only downside being that backups are user dependent and not set and forget. 
 - **The confirmation prompt in push-backup.bash is intentional friction:** The script asks before it runs anything, rather than just firing off silently. This is not an oversight it is a deliberate checkpoint so a backup never kicks off by accident or in case the user decides to change their mind.
-- **Mirror-backup.bash runs automatically:** The server runs on outdated hardware for two reasons: low energy consumption, and because it's what I had lying around. The sync itself needs no human intervention and runs automatically on a set schedule that can be adjusted to your liking. 
-- **Month/day nested folder structure:** Balancing storage efficiency with recovery granularity: backups are only pushed when something meaningful actually changed, which naturally avoids wasted, redundant daily snapshots. Pushing on your own schedule also means you can adapt to how much things are actually changing, backing up more often during busy stretches and less during quiet ones.
+- **Mirror-backup.bash runs automatically:** The server side sync (mirror-job) needs no human intervention and runs automatically on a set schedule that can be adjusted to your liking. 
+- **Month/day nested folder structure:** Balancing storage efficiency with recovery granularity: backups are only pushed when something meaningful actually changed, which naturally avoids wasted sapce or redundant snapshots. Pushing on your own schedule also means you can adapt to how much things are actually changing, backing up more often during busy stretches and less during quiet ones.
 - **Logging to a single-line, pipe-delimited format:** Logs let you check what happened after each `rsync` run without needing to be present or watching live, especially useful for the mirror job, which runs unattended.
 - **Security:** The server didn't have any firewalls deployed initially, to avoid `ssh` connectivity issues while the backup implementation was still being built out. Once the implementation was rock solid, firewalls were activated on the server.
-- **SSH hardening:** Password authentication was replaced with SSH key-based auth across all client machines (each with its own dedicated key), and `PermitRootLogin no` was set to disable direct root login over SSH, closing off a common brute-force target entirely.
-- **Future improvements:** Creating a 'Restore" script that pulls backups from the server machine. Create a consolidated backup script that combines both a backup and restore function. 
+- **SSH hardening:** Password authentication was replaced with SSH key-based auth across all client machines (each with its own dedicated SSH key), and `PermitRootLogin no` was set to disable direct root login over SSH, closing off a common brute-force target entirely.
+- **Future improvements:** Create a consolidated backup script that combines both a backup and restore function. I would also like to implement a menu with a loop so the user can make multiple changes in one go without having to exit the script. Implement the restore/backup function in a way that allows the user to select what folders to restore/backup from since these can vary from day to day use. Finally I would like to add more information to the logs that tell the user what folders were restored/backed-up. 
 
 ## Author
 Hector Rico — [MellowTangent](https://github.com/MellowTangent) · [LinkedIn](https://www.linkedin.com/in/hectorricodev/)
