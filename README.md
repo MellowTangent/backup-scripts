@@ -13,7 +13,7 @@ My very first backup system consisted of me manually dragging and dropping folde
 
 The second version of the backup system consisted of a server running Ubuntu and the clients on Windows running WSL. The backup system was literally just a one line command.
 
-Example of one-liner command: `rsync -avh --progress "/path/to/local/folder/" "username@serverip:/path/to/backup/destination/"`.
+`rsync -avh --progress "/path/to/local/folder/" "username@serverip:/path/to/backup/destination/"`.
 
 This project was finally born after realizing that I needed something more robust, interactive, with built-in redundancy, automation, and logging. This new backup system is the result, built on the lessons learned from the older versions.
 
